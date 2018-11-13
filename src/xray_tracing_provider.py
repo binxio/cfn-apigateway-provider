@@ -30,7 +30,7 @@ class EnableStageTracingProvider(ResourceProvider):
                 'patchOperations': [{
                     'op': 'replace',
                     'path': '/tracingEnabled',
-                    'value': True
+                    'value': 'True'
                 }]
             }
 
@@ -58,7 +58,7 @@ class EnableStageTracingProvider(ResourceProvider):
                 'patchOperations': [{
                     'op': 'replace',
                     'path': '/tracingEnabled',
-                    'value': False
+                    'value': 'False'
                 }]
             }
 
