@@ -14,7 +14,8 @@ Resources:
       Handler: index.handler
       Runtime: python3.6
       InlineCode: |
-        print('Hello World! Please trace this.')
+        def handler(request, context):
+          return 'Hello World! Please trace this.'
       Tracing: Active
       Events:
         Hello:
