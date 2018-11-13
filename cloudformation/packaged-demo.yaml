@@ -7,7 +7,7 @@ Resources:
     Type: AWS::Serverless::Api
   DemoFunction:
     Properties:
-      CodeUri: s3://binxio-apigateway-custom-provider-eu-west-1/738afb96eb53d075bd62a8d78ff82083
+      CodeUri: s3://binxio-apigateway-custom-provider-eu-west-1/88bbaee52ff30de47e5a8c25ac417e41
       Events:
         Hello:
           Properties:

@@ -38,7 +38,7 @@ class EnableStageTracingProvider(ResourceProvider):
             response = client.update_stage(**updates)
             self.physical_resource_id = response['deploymentId'] + response['stageName']
 
-            self.success(response)
+            self.success(f'{response}')
         except ClientError as error:
             self.physical_resource_id = 'failed-to-create'
             self.fail(f'{error}')
@@ -65,7 +65,7 @@ class EnableStageTracingProvider(ResourceProvider):
             updates.update(patch_operations)
             response = client.update_stage(**updates)
 
-            self.success(response)
+            self.success(f'{response}')
         except ClientError as error:
             self.fail(f'{error}')
 
