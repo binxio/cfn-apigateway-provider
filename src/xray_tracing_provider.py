@@ -15,10 +15,10 @@ class EnableStageTracingProvider(ResourceProvider):
         super(EnableStageTracingProvider, self).__init__()
         self.request_schema = {
             'type': 'object',
-            'required': ['RestApiId', 'StageName'],
+            'required': ['restApiId', 'stageName'],
             'properties': {
-                'RestApiId': {'type': 'string'},
-                'StageName': {'type': 'string'}
+                'restApiId': {'type': 'string'},
+                'stageName': {'type': 'string'}
             }
         }
 
@@ -28,13 +28,13 @@ class EnableStageTracingProvider(ResourceProvider):
         try:
             kwargs.pop('ServiceToken', None)
 
-            patch_operations=[
-                {
+            patch_operations = {
+                'patchOperations': [{
                     'op': 'add',
                     'path': '/tracingEnabled',
                     'value': 'True'
-                },
-            ]
+                }]
+            }
 
             kwargs.update(patch_operations)
             response = client.update_stage(**kwargs)
@@ -58,12 +58,12 @@ class EnableStageTracingProvider(ResourceProvider):
         try:
             kwargs.pop('ServiceToken', None)
 
-            patch_operations=[
-                {
+            patch_operations = {
+                'patchOperations': [{
                     'op': 'remove',
                     'path': '/tracingEnabled'
-                },
-            ]
+                }]
+            }
 
             kwargs.update(patch_operations)
             response = client.update_stage(**kwargs)
