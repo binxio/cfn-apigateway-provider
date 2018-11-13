@@ -10,9 +10,9 @@ log.setLevel(os.environ.get('LOG_LEVEL', 'DEBUG'))
 client = boto3.client('apigateway')
 
 
-class XrayTracingProvider(ResourceProvider):
+class EnableStageTracingProvider(ResourceProvider):
     def __init__(self):
-        super(XrayTracingProvider, self).__init__()
+        super(EnableStageTracingProvider, self).__init__()
         self.request_schema = {
             'type': 'object',
             'required': ['RestApiId', 'StageName'],
@@ -73,7 +73,7 @@ class XrayTracingProvider(ResourceProvider):
             self.fail(error)
 
 
-provider = XrayTracingProvider()
+provider = EnableStageTracingProvider()
 
 
 def handler(request, context):
