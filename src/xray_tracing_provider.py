@@ -36,7 +36,7 @@ class EnableStageTracingProvider(ResourceProvider):
                 },
             ]
 
-            kwargs.update('patchOperations', patch_operations)
+            kwargs.update(patch_operations)
             response = client.update_stage(kwargs)
             self.physical_resource_id = response['deploymentId'] + response['stageName']
 
@@ -65,7 +65,7 @@ class EnableStageTracingProvider(ResourceProvider):
                 },
             ]
 
-            kwargs.update('patchOperations', patch_operations)
+            kwargs.update(patch_operations)
             response = client.update_stage(kwargs)
 
             self.success(response)
