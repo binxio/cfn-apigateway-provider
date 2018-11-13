@@ -1,0 +1,30 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Demo stack for enabling xray tracing on an apigateway stage
+
+Resources:
+  DemoApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: 'demo'
+  DemoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: python 3.6
+      InlineCode: |
+        return 'Hello World! Please trace this.'
+      Tracing: Active
+      Events:
+        Type: Api
+        Properties:
+          Path: /hello
+          Method: GET
+          RestApiId: !Ref DemoApi
+  EnableXray:
+    Type: Custom::Custom::EnableStageTracing
+    Properties:
+      RestApiId: !Ref DemoApi
+      StageName: !GetAtt DemoApi.Stage
+      ServiceToken: !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:binxio-cfn-apigateway-provider'
