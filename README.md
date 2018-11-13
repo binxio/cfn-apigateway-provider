@@ -22,6 +22,10 @@ Properties:
   ServiceToken: Arn of the custom resource provider lambda function
 ```
 
+*Note*: If you are enabling the tracing in the same stack as you are creating the stage you want to enable it for you
+must use [DependsOn](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-dependson.html) to
+make sure that the tracing isn't enabled until after the stage after has been created.
+
 ## Installation
 
 To install this custom resource follow these steps:
@@ -45,13 +49,16 @@ aws cloudformation wait stack-create-complete  --stack-name cfn-apigate-way-prov
 
 ## Demo
 
-To try out the custom resource type the following to deploy the demo:
+To try out the custom resource first make sure you have the [sam-cli](https://github.com/awslabs/aws-sam-cli/blob/develop/docs/installation.rst#installation) 
+installed. After that type the following to deploy the demo:
 
 ```sh
-aws cloudformation create-stack --stack-name cfn-apigateway-provider-demo \
-	--template-body file://cloudformation/demo-stack.yaml \
-aws cloudformation wait stack-create-complete  --stack-name cfn-apigateway-provider-demo
+sam package --template-file ./cloudformation/demo-stack.yaml \
+	   --s3-bucket $(S3_BUCKET_PREFIX)-$(AWS_REGION) \
+	   --output-template-file ./cloudformation/packaged-demo.yaml
+sam deploy --template-file ./cloudformation/packaged-demo.yaml --stack-name $(NAME)-demo --capabilities CAPABILITY_IAM
 ```
 
-This will deploy a cfn-apigateway-provider demo stack containing an apigateway with a 'hello world' lambda function  on 
-the path '/hello' and also deploy the custom resource to enable x-ray tracing on the stage 'demo'.
+This will deploy a cfn-apigateway-provider demo stack containing an apigateway with a 'hello world' lambda function on 
+the path '/hello' and also deploy the custom resource which will enable x-ray tracing on the stage 'demo'. Invoke the 
+endpoint a couple of times and you will see the traces appear in X-Ray.

@@ -23,6 +23,7 @@ class EnableStageTracingProvider(ResourceProvider):
         }
 
     def create(self):
+        self.physical_resource_id = self.properties['RestApiId'] + self.properties['StageName']
         self.set_tracing(self.properties['RestApiId'], self.properties['StageName'], True)
 
     def update(self):
