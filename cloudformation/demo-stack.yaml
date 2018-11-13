@@ -15,7 +15,10 @@ Resources:
       Runtime: python3.6
       InlineCode: |
         def handler(request, context):
-          return 'Hello World! Please trace this.'
+          return {
+            'statusCode': 200,
+            'body': 'Hello World! Please trace this.'
+          }
       Tracing: Active
       Events:
         Hello:
