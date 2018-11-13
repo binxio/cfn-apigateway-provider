@@ -30,7 +30,7 @@ class EnableStageTracingProvider(ResourceProvider):
                 'patchOperations': [{
                     'op': 'add',
                     'path': '/tracingEnabled',
-                    'value': 'True'
+                    'value': True
                 }]
             }
 
