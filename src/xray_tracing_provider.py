@@ -41,7 +41,7 @@ class EnableStageTracingProvider(ResourceProvider):
             self.success(response)
         except ClientError as error:
             self.physical_resource_id = 'failed-to-create'
-            self.fail(error)
+            self.fail(f'{error}')
 
     def update(self):
         if self.properties['tracingEnabled'] is True:
@@ -66,7 +66,7 @@ class EnableStageTracingProvider(ResourceProvider):
 
             self.success(response)
         except ClientError as error:
-            self.fail(error)
+            self.fail(f'{error}')
 
 
 provider = EnableStageTracingProvider()
