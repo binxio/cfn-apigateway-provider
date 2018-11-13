@@ -28,7 +28,7 @@ class EnableStageTracingProvider(ResourceProvider):
 
             patch_operations = {
                 'patchOperations': [{
-                    'op': 'add',
+                    'op': 'replace',
                     'path': '/tracingEnabled',
                     'value': True
                 }]
@@ -56,8 +56,9 @@ class EnableStageTracingProvider(ResourceProvider):
 
             patch_operations = {
                 'patchOperations': [{
-                    'op': 'remove',
-                    'path': '/tracingEnabled'
+                    'op': 'replace',
+                    'path': '/tracingEnabled',
+                    'value': False
                 }]
             }
 
