@@ -15,18 +15,16 @@ class EnableStageTracingProvider(ResourceProvider):
         super(EnableStageTracingProvider, self).__init__()
         self.request_schema = {
             'type': 'object',
-            'required': ['restApiId', 'stageName'],
+            'required': ['RestApiId', 'StageName'],
             'properties': {
-                'restApiId': {'type': 'string'},
-                'stageName': {'type': 'string'}
+                'RestApiId': {'type': 'string'},
+                'StageName': {'type': 'string'}
             }
         }
 
     def create(self):
-        kwargs = self.properties.copy()
-
         try:
-            kwargs.pop('ServiceToken', None)
+            updates = {'restApiId': self.properties['RestApiId'], 'stageName': self.properties['StageName']}
 
             patch_operations = {
                 'patchOperations': [{
@@ -36,8 +34,8 @@ class EnableStageTracingProvider(ResourceProvider):
                 }]
             }
 
-            kwargs.update(patch_operations)
-            response = client.update_stage(**kwargs)
+            updates.update(patch_operations)
+            response = client.update_stage(**updates)
             self.physical_resource_id = response['deploymentId'] + response['stageName']
 
             self.success(response)
@@ -53,10 +51,8 @@ class EnableStageTracingProvider(ResourceProvider):
             self.delete()
 
     def delete(self):
-        kwargs = self.properties.copy()
-
         try:
-            kwargs.pop('ServiceToken', None)
+            updates = {'restApiId': self.properties['RestApiId'], 'stageName': self.properties['StageName']}
 
             patch_operations = {
                 'patchOperations': [{
@@ -65,8 +61,8 @@ class EnableStageTracingProvider(ResourceProvider):
                 }]
             }
 
-            kwargs.update(patch_operations)
-            response = client.update_stage(**kwargs)
+            updates.update(patch_operations)
+            response = client.update_stage(**updates)
 
             self.success(response)
         except ClientError as error:
