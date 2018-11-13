@@ -38,7 +38,7 @@ class XrayTracingProvider(ResourceProvider):
 
             kwargs.update('patchOperations', patch_operations)
             response = client.update_stage(kwargs)
-            self.physical_resource_id = response['deploymentId']
+            self.physical_resource_id = response['deploymentId'] + response['stageName']
 
             self.success(response)
         except ClientError as error:
