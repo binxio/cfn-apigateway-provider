@@ -42,6 +42,7 @@ class XrayTracingProvider(ResourceProvider):
 
             self.success(response)
         except ClientError as error:
+            self.physical_resource_id = 'failed-to-create'
             self.fail(error)
 
     def update(self):
