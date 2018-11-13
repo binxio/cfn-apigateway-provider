@@ -1,13 +1,9 @@
 [packages]
 cfn-resource-provider = "*"
-ipython = "*"
 boto3 = "*"
-requests = "*"
 
 [dev-packages]
 boto3="*"
-mock = "*"
-pytest = "*"
 
 [requires]
 python_version = "3.7"
