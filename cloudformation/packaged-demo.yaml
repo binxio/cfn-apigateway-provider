@@ -7,7 +7,7 @@ Resources:
     Type: AWS::Serverless::Api
   DemoFunction:
     Properties:
-      CodeUri: s3://binxio-apigateway-custom-provider-eu-west-1/a64ab22513264da0ec5be5fb6c29ce7d
+      CodeUri: s3://binxio-apigateway-custom-provider-eu-west-1/33739802e38ee969566fb5d1dbbb4e76
       Events:
         Hello:
           Properties:
@@ -17,8 +17,8 @@ Resources:
               Ref: DemoApi
           Type: Api
       Handler: index.handler
-      InlineCode: "def handler(request, context):\n  return 'Hello World! Please trace\
-        \ this.'\n"
+      InlineCode: "def handler(request, context):\n  return {\n    'statusCode': 200,\n\
+        \    'body': 'Hello World! Please trace this.'\n  }\n"
       Runtime: python3.6
       Tracing: Active
     Type: AWS::Serverless::Function

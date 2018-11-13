@@ -23,42 +23,24 @@ class EnableStageTracingProvider(ResourceProvider):
         }
 
     def create(self):
-        try:
-            updates = {'restApiId': self.properties['RestApiId'], 'stageName': self.properties['StageName']}
-
-            patch_operations = {
-                'patchOperations': [{
-                    'op': 'replace',
-                    'path': '/tracingEnabled',
-                    'value': 'True'
-                }]
-            }
-
-            updates.update(patch_operations)
-            response = client.update_stage(**updates)
-            self.physical_resource_id = response['deploymentId'] + response['stageName']
-
-            self.success(f'{response}')
-        except ClientError as error:
-            self.physical_resource_id = 'failed-to-create'
-            self.fail(f'{error}')
+        self.set_tracing(self.properties['RestApiId'], self.properties['StageName'], True)
 
     def update(self):
-        if self.properties['tracingEnabled'] is True:
-            self.delete()
-            self.create()
-        else:
-            self.delete()
+        self.set_tracing(self.old_properties['RestApiId'], self.old_properties['StageName'], False)
+        self.set_tracing(self.properties['RestApiId'], self.properties['StageName'], True)
 
     def delete(self):
+        self.set_tracing(self.properties['RestApiId'], self.properties['StageName'], False)
+
+    def set_tracing(self, api_id, stage_name, tracing_enabled: bool):
         try:
-            updates = {'restApiId': self.properties['RestApiId'], 'stageName': self.properties['StageName']}
+            updates = {'restApiId': api_id, 'stageName': stage_name}
 
             patch_operations = {
                 'patchOperations': [{
                     'op': 'replace',
                     'path': '/tracingEnabled',
-                    'value': 'False'
+                    'value': f'{tracing_enabled}'
                 }]
             }
 
