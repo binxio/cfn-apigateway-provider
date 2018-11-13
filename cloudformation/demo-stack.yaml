@@ -12,19 +12,21 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.handler
-      Runtime: python 3.6
+      Runtime: python3.6
       InlineCode: |
         return 'Hello World! Please trace this.'
       Tracing: Active
       Events:
-        Type: Api
-        Properties:
-          Path: /hello
-          Method: GET
-          RestApiId: !Ref DemoApi
+        Hello:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: GET
+            RestApiId: !Ref DemoApi
   EnableXray:
-    Type: Custom::Custom::EnableStageTracing
+    DependsOn: DemoApi
+    Type: Custom::EnableStageTracing
     Properties:
       RestApiId: !Ref DemoApi
-      StageName: !GetAtt DemoApi.Stage
+      StageName: !Ref DemoApi.Stage
       ServiceToken: !Sub 'arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:binxio-cfn-apigateway-provider'
