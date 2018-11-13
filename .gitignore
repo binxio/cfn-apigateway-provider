@@ -15,3 +15,4 @@ venv/
 .eggs/
 /.idea/
 /target/
+packaged-demo.yaml
