@@ -22,6 +22,7 @@ Resources:
             Action:
               - apigateway:updateStage
               - apigateway:PATCH
+              - iam:CreateServiceLinkedRole
             Resource:
               - '*'
           - Effect: Allow

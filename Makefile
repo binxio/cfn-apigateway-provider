@@ -106,8 +106,10 @@ delete-provider:
 	aws --region $(AWS_REGION) cloudformation wait stack-delete-complete  --stack-name $(NAME)
 
 demo:
-	sam package --template-file ./cloudformation/demo-stack.yaml --s3-bucket $(S3_BUCKET_PREFIX)-$(AWS_REGION) --output-template-file ./cloudformation/packaged-demo.yaml
-	sam deploy --template-file ./cloudformation/packaged-demo.yaml --stack-name $(NAME)-demo --capabilities CAPABILITY_IAM
+	sam package --template-file ./cloudformation/demo-stack.yaml \
+	   --s3-bucket $(S3_BUCKET_PREFIX)-$(AWS_REGION) \
+	   --output-template-file ./cloudformation/packaged-demo.yaml
+	sam deploy --template-file ./cloudformation/packaged-demo.yaml --stack-name $(NAME)-demo-2 --capabilities CAPABILITY_IAM
 
 delete-demo:
 	aws --region $(AWS_REGION) cloudformation delete-stack --stack-name $(NAME)-demo
