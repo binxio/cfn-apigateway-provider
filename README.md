@@ -1,3 +1,5 @@
+Deprecated Nov 2024  -> supported by [AWS::ApiGateway::Stage](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html#cfn-apigateway-stage-tracingenabled)
+
 # ApiGateway Custom Provider for X-Ray Support
 
 Recently the AWS [API Gateway](https://aws.amazon.com/about-aws/whats-new/2018/09/amazon-api-gateway-adds-support-for-aws-x-ray/) 
